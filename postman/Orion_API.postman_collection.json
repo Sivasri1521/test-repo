@@ -1,0 +1,63 @@
+{
+  "info": {
+    "name": "Orion Retail API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Two worked examples. Add your own requests and tests, built from docs/API_SPEC.md. Select the 'Orion local' environment."
+  },
+  "item": [
+    {
+      "name": "Worked examples",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/health",
+            "description": "Worked example: status code, content type, body and response time."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"response is JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"); });",
+                  "pm.test(\"API reports ok\", function () { pm.expect(pm.response.json().status).to.eql(\"ok\"); });",
+                  "pm.test(\"responds within 1 second\", function () { pm.expect(pm.response.responseTime).to.be.below(1000); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Senior discount - age 30",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/discounts/senior?age=30",
+            "description": "Worked example: checking the body against a business rule."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status is 200\", function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"body has age and discount_pct\", function () {",
+                  "    pm.expect(body).to.have.property(\"age\");",
+                  "    pm.expect(body).to.have.property(\"discount_pct\");",
+                  "});",
+                  "pm.test(\"age 30 gets no senior discount (BR-03)\", function () { pm.expect(body.discount_pct).to.eql(0); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

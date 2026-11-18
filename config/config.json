@@ -1,0 +1,58 @@
+{
+  "database": "orion.db",
+  "source_dir": "data/source",
+  "evidence_dir": "reports/evidence",
+  "day1_effective_date": "2026-10-01",
+  "day2_effective_date": "2026-10-08",
+  "extract_window": {
+    "start": "2026-10-01",
+    "end": "2026-10-14"
+  },
+  "row_count_tolerance_pct": 0.5,
+  "amount_tolerance": 0.01,
+  "load_window_utc": {
+    "start": "01:00",
+    "end": "05:00"
+  },
+  "valid_values": {
+    "region": [
+      "North",
+      "South",
+      "East",
+      "West"
+    ],
+    "segment_name": [
+      "Premium",
+      "Standard",
+      "Basic",
+      "Unassigned"
+    ],
+    "account_type": [
+      "Loan",
+      "Deposit"
+    ],
+    "gender": [
+      "Male",
+      "Female",
+      "Unknown"
+    ],
+    "order_status": [
+      "PLACED",
+      "CONFIRMED",
+      "PACKED",
+      "SHIPPED",
+      "OUT_FOR_DELIVERY",
+      "DELIVERED",
+      "CANCELLED"
+    ],
+    "reject_reason": [
+      "INVALID_DATE",
+      "UNKNOWN_PRODUCT",
+      "DUPLICATE_KEY"
+    ]
+  },
+  "report_excluded_statuses": [
+    "CANCELLED"
+  ],
+  "senior_discount_min_age": 60
+}

@@ -1,0 +1,29 @@
+# Orion data tests - CI pipeline (starting point).
+# It works, but it is not yet a regression strategy. Your team decides:
+#   - what runs on every push vs nightly (the schedule block is commented out)
+#   - whether the HTML report and evidence are kept as build artifacts
+#   - whether a failing test should block a merge, and how known defects are marked
+name: orion-data-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "30 5 * * *"   # 05:30 UTC, after the nightly load window
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Run pipeline
+        run: python pipeline/run_pipeline.py
+      - name: Smoke tests
+        run: pytest -m smoke --html=reports/report.html --self-contained-html

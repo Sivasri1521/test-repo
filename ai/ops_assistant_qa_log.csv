@@ -1,0 +1,13 @@
+id,question,answer,source_cited,matches_source,answers_question,internally_consistent,grounded,failure_type,one_line_reason
+1,When does the nightly load run?,The nightly load runs between 01:00 and 05:00 UTC; anything still running at 05:00 is a late load.,S1,,,,,,
+2,What row-count difference fails the quality gate?,A load fails the quality gate when row counts differ from source by more than 5%.,S5,,,,,,
+3,How long are audit logs kept?,Audit logs are kept for 7 years in line with curated data retention.,S2,,,,,,
+4,Who approves production access?,Production access is approved by the data owner and the security team and lasts 90 days.,S4,,,,,,
+5,How fast are Sev 2 incidents handled?,Sev 2 incidents are handled 24x7. Like all incidents they are picked up the next business day.,S10,,,,,,
+6,What happens to rows with a null primary key?,They are moved to quarantine and never loaded to silver.,S5,,,,,,
+7,What is the restore time for the sales mart?,The sales mart can be restored within 4 hours.,S10,,,,,,
+8,Can I copy production data to test?,No. Test environments use masked data only and production data is never copied to test.,S7,,,,,,
+9,When can a 10-day backfill start?,A 10-day backfill needs a change ticket and can start after 20:00 UTC only at weekends.,S6,,,,,,
+10,Can a contractor see customer birth dates?,The handbook doesn't say directly how to grant this. Birth dates are Restricted (S11) and contractors never get access to Restricted data (S4).,S11,,,,,,
+11,How big is the sales mart?,The sales mart is about 4.2 TB and is backed up nightly.,S12,,,,,,
+12,What does Sev 3 mean?,Releases go out on Tuesdays and Thursdays after a green regression run.,S8,,,,,,

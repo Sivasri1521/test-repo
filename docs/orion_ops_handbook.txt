@@ -1,0 +1,14 @@
+Orion Retail Data Platform - Operations Handbook v3.2 (fictional, capstone edition)
+
+S1 Nightly load. The nightly load runs between 01:00 and 05:00 UTC. Any job still running at 05:00 UTC is a late load and must be reported to the platform on-call.
+S2 Retention. Raw data is kept for 30 days. Curated (silver and gold) data is kept for 7 years. Audit logs are kept for 13 months.
+S3 Severity. Sev 1: dashboard or load down for all users. Sev 2: wrong figures on a P0 report. Sev 3: a single feed delayed. Sev 4: cosmetic.
+S4 Production access. Production access needs approval from the data owner and the security team and lasts 90 days. Contractors never get access to Restricted data.
+S5 Quality gates. A load fails the gate if row counts differ from source by more than 0.5%. Rows with null or duplicate primary keys are moved to quarantine and never loaded to silver.
+S6 Reruns and backfills. A backfill of more than 7 days needs a change ticket and can only start after 20:00 UTC.
+S7 Test environments. Test environments use masked data only. Production data is never copied to test.
+S8 Releases. Releases go out on Tuesdays and Thursdays after a green regression run.
+S9 Alerting. Failed jobs alert the on-call engineer by page; late loads alert by email.
+S10 Support. Sev 1 and Sev 2 incidents are handled 24x7. Sev 3 and Sev 4 are handled next business day.
+S11 Classification. Customer names, emails and birth dates are Restricted. Order amounts are Internal.
+S12 Sales mart. The sales mart holds 4.2 TB. Any query scanning more than 1 TB needs approval from the data owner.

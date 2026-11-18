@@ -1,0 +1,7 @@
+dimension,table,column,rule,check (qa_lib function or SQL),threshold,result,evidence
+Completeness,,,,,,,
+Uniqueness,,,,,,,
+Validity,,,,,,,
+Accuracy,,,,,,,
+Consistency,,,,,,,
+Timeliness,,,,,,,

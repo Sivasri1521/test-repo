@@ -1,0 +1,25 @@
+rule_id,target_table,target_column,source_table,source_column,transformation_rule,notes
+S-ORD-01,silver_orders,order_id,raw_orders,order_id,Direct move,Primary key; must be unique and not null
+S-ORD-02,silver_orders,order_date,raw_orders,order_date,Cast to DATE (YYYY-MM-DD); invalid dates go to rejects with reason INVALID_DATE,DR-02
+S-ORD-03,silver_orders,customer_id,raw_orders,customer_id,Trim; blank -> NULL,BR-09 handled in fact
+S-ORD-04,silver_orders,product_id,raw_orders,product_id,Direct move; not in product master -> rejects with reason UNKNOWN_PRODUCT,BR-10
+S-ORD-05,silver_orders,qty,raw_orders,qty,Cast to INTEGER,
+S-ORD-06,silver_orders,amount,raw_orders,qty * unit_price,"ROUND(qty * unit_price, 2)",Derived
+S-ORD-07,silver_orders,status,raw_orders,status,Direct move,
+S-REJ-01,rejects,*,raw_orders,*,"One row per rejected source row with reject_reason, batch_id, load_ts",DR-02
+S-PAY-01,silver_payments,cust_id,raw_payments_a,cust_id,Blank -> quarantine (handbook S5); not loaded to silver,Quality gate
+S-CUS-01,dim_customer,customer_key,generated,,Surrogate key; -1 reserved for Unknown,BR-09
+S-CUS-02,dim_customer,full_name,raw_customers,first_name + last_name,first_name || ' ' || last_name,Type 1
+S-CUS-03,dim_customer,region,raw_customers,region,Direct move,Type 2
+S-CUS-04,dim_customer,segment_name,raw_customers,segment_code,"P -> Premium, S -> Standard, B -> Basic, ELSE -> Unassigned",Type 2
+S-CUS-05,dim_customer,start_date/end_date/is_current,generated,,New version: start = effective date; previous version end = new start and is_current = N; open end = 9999-12-31,Type 2
+S-CUS-06,dim_customer_scd1,is_active,generated,,Customer missing from feed -> is_active = N (soft delete),BR-06
+S-FCT-01,fact_sales,order_id,silver_orders,order_id,One row per order (grain),
+S-FCT-02,fact_sales,customer_key,dim_customer,customer_key,Lookup on customer_id where is_current = Y; no match -> -1,BR-09
+S-FCT-03,fact_sales,region,dim_customer,region,From the current customer version,
+S-FCT-04,fact_sales,category,products,category,Lookup on product_id,
+G-AGG-01,agg_daily_region_sales,orders,fact_sales,order_id,COUNT orders excluding CANCELLED,BR-07
+G-AGG-02,agg_daily_region_sales,revenue,fact_sales,amount,SUM amount excluding CANCELLED,BR-07
+G-KPI-01,kpi_region_sales,total_orders,agg_daily_region_sales,orders,SUM,
+G-KPI-02,kpi_region_sales,total_revenue,agg_daily_region_sales,revenue,SUM,
+G-KPI-03,kpi_region_sales,avg_order_value,agg_daily_region_sales,revenue/orders,SUM(revenue) / SUM(orders),BR-08

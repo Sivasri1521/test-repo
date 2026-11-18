@@ -1,0 +1,13 @@
+product_id,product_name,category,unit_price
+P01,Samsung 55 inch TV,Electronics,45000.00
+P02,Bluetooth Speaker,Electronics,2500.00
+P03,Running Shoes,Fashion,3200.00
+P04,Denim Jacket,Fashion,2800.00
+P05,Coffee Maker,Home,5400.00
+P06,Air Fryer,Home,7800.00
+P07,Office Chair,Furniture,9500.00
+P08,Bookshelf,Furniture,6200.00
+P09,Yoga Mat,Sports,900.00
+P10,Cricket Bat,Sports,3600.00
+P11,Face Cream,Beauty,750.00
+P12,Perfume,Beauty,4100.00

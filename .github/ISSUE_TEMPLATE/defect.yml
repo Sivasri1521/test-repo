@@ -1,0 +1,81 @@
+name: Defect
+description: A defect that needs no follow-up questions
+title: "DEF: <what is wrong, where, impact>"
+labels: ["defect", "status:open"]
+body:
+  - type: input
+    id: requirement
+    attributes:
+      label: Requirement or STTM rule
+      placeholder: "e.g. BR-07, S-FCT-02"
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Layer / table / column
+      placeholder: "e.g. Gold / agg_daily_region_sales / revenue"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (impact)
+      options: [Critical, High, Medium, Low]
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority (urgency to fix)
+      options: [P1, P2, P3]
+    validations:
+      required: true
+  - type: input
+    id: test
+    attributes:
+      label: Found by test
+      placeholder: "tests/test_50_consumption.py::test_cancelled_orders_excluded"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce (exact query or command)
+      render: sql
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected (cite the BRD or STTM)
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual (numbers)
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence file
+      placeholder: "reports/evidence/<test>__<label>.csv  (no Restricted columns)"
+    validations:
+      required: true
+  - type: input
+    id: root_cause
+    attributes:
+      label: Root cause (file and line)
+      placeholder: "pipeline/sql/50_gold.sql line 6"
+  - type: textarea
+    id: impact
+    attributes:
+      label: Business impact (in rupees, orders or customers)
+  - type: input
+    id: owner
+    attributes:
+      label: "Owner: name, OHR"
+    validations:
+      required: true

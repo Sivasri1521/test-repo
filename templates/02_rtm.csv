@@ -1,0 +1,2 @@
+req_id,req_description,priority,test_scenario_id,test_scenario,test_case_id,automated_test (file::name),status,defect_id
+BR-03,Senior discount aged 60 and above,P0,SCE_001,Senior discount boundaries,TC_001,tests/test_10_app.py::test_senior_discount_boundaries,Not run,

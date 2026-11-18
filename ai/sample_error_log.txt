@@ -1,0 +1,4 @@
+2026-10-15T05:41:12Z etl01.orion.internal 10.24.7.15 silver_load WARN customer C031 has 2 current rows
+2026-10-15T05:41:13Z etl01.orion.internal 10.24.7.15 silver_load WARN order O00558 date 2026-02-30 accepted
+2026-10-15T05:41:20Z etl02.orion.internal 10.24.7.16 recon ERROR txn T0198 not found in ledger; contact priya.verma@orion.example
+2026-10-15T05:42:00Z etl01.orion.internal 10.24.7.15 silver_load INFO finished, 4 rows skipped
